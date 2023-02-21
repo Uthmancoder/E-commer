@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../icofont/icofont.min.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        width: 99%;
+        /* overflow-x: hidden; */
+    }
+
+    .links {
+        display: flex;
+        align-items: center;
+
+    }
+
+    h1 {
+        font-family: 'Courier New', Courier, monospace;
+        margin-left: 20px;
+        font-weight: bolder;
+    }
+
+    h1 span {
+        color: rgb(36, 61, 57);
+    }
+
+    .ddb {
+        margin-top: -18px;
+        background: none;
+
+    }
+
+    .log {
+        display: flex;
+        align-items: center;
+        text-align: right;
+    }
+
+    .button {
+        border: none;
+        background: none;
+        margin: 0 20px;
+    }
+
+
+
+    .aa:hover {
+        color: rgb(36, 61, 57);
+
+    }
+
+    nav {
+        width: 100%;
+        padding: 10px;
+        position: sticky;
+        top: 0;
+        background-color: white;
+        z-index: 2;
+
+
+    }
+
+    .nav-2 {
+        width: 100%;
+        padding: 13px 0 5px 0;
+        background-color: rgba(0, 0, 0, 0.9);
+        text-align: center;
+        color: white;
+    }
+
+    .dropdown {
+        position: relative;
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        left: 5%;
+        top: 40px;
+        width: 200px;
+        background-color: white;
+        display: none;
+    }
+
+    .dropdown:focus-within .dropdown-menu {
+        display: block;
+    }
+
+    .clo {
+        background-color: rgb(36, 61, 57);
+        color: white;
+        font-size: 17px;
+        border: none;
+    }
+
+    .clo:hover {
+        background-color: rgb(36, 61, 57);
+        color: white;
+        font-size: 17px;
+    }
+
+    .carousel-inner {
+        background-image: url(https://t4.ftcdn.net/jpg/05/55/20/29/240_F_555202983_l1Jqx8qmXjz8lW1w3eAiJN46Tc3sjoJi.jpg);
+        width: 100%;
+        height: 80vh;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: rgb(36, 61, 57);
+    }
+
+    .tex {
+        margin-top: 13%;
+    }
+
+    .shopp {
+        border-bottom: 3px solid rgb(36, 61, 57);
+        width: fit-content;
+
+    }
+
+    .image,
+    .kids {
+        border: 2px solid rgba(0, 0, 0, 0.1);
+        width: 210px;
+        height: 300px;
+        box-shadow: 0 0 20px grey;
+        border-radius: 10px;
+        margin: 20px;
+    }
+
+    .fle {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+
+    }
+
+    .pp {
+        width: 200px;
+        text-align: center;
+        margin: 0 3%;
+    }
+
+    .disp {
+        display: none;
+        font-size: 25px;
+        padding: 10px;
+    }
+
+    .imm {
+        width: 60px;
+        height: 25px;
+    }
+
+
+    #screen>* {
+        flex-grow: 1;
+    }
+
+    .wid {
+        width: 100%;
+        height: 80vh;
+        background-color: rgb(230, 201, 192);
+
+    }
+
+    .flo {
+        float: right;
+    }
+
+    .ppy {
+        padding: 10%;
+    }
+
+    .kidsd {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        align-items: center;
+        margin: 0 4%;
+    }
+
+    .adto {
+        background-color: rgb(36, 61, 57);
+        color: white;
+        margin: 0 20%;
+    }
+
+    .adto:hover {
+        background-color: rgb(36, 61, 57);
+    }
+
+    .adtoc:focus-within {
+        visibility: hidden;
+    }
+
+    .ddd {
+        width: fit-content;
+    }
+
+
+    .rgf {
+        display: flex;
+        align-items: center;
+    }
+
+    .mxtt {
+        margin-left: 20%;
+    }
+
+
+    @media (max-width :550px) {
+        nav {
+            width: 100%;
+            padding: 10px;
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 2;
+
+
+        }
+
+        .carousel-inner {
+            background-image: url(https://t4.ftcdn.net/jpg/05/55/20/29/240_F_555202983_l1Jqx8qmXjz8lW1w3eAiJN46Tc3sjoJi.jpg);
+            width: 100%;
+            height: 80vh;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: rgb(36, 61, 57);
+        }
+
+        .links {
+            display: none;
+        }
+
+        .wid {
+            width: 100%;
+            display: flex;
+            /* flex-wrap: wrap; */
+            margin: auto;
+
+        }
+
+        .ddb {
+            display: none;
+        }
+
+        .rgf {
+            display: none;
+        }
+
+        .inpp {
+            display: none;
+        }
+
+        .alt {
+            display: none;
+        }
+
+        .btt {
+            display: none;
+        }
+
+        .acc {
+            display: none;
+        }
+
+        .disp {
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .fff {
+            margin: 0 12%;
+        }
+
+        .image {
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            width: 120px;
+            height: 120px;
+            box-shadow: 0 0 20px grey;
+            border-radius: 10px;
+            margin: 5%;
+        }
+
+        .collect {
+            display: none;
+
+        }
+    }
+
+    .Outl {
+        outline: none;
+    }
+
+    .imm {
+        width: 100px;
+        height: 30px;
+    }
+
+    .ddf {
+        display: flex;
+        align-items: center;
+    }
+
+    .scr2 {
+        margin: 0 30px;
+    }
+
+    .widt {
+        width: 70%;
+    }
+
+    .wdb {
+        width: 270px;
+        height: fit-content;
+        position: fixed;
+        right: 1%;
+        top: 20%;
+        /* display: none; */
+    }
+
+    .mxc {
+        margin-left: 53%;
+    }
+
+    .ddd {
+        position: relative;
+    }
+
+    .start {
+        background-color: rgb(36, 61, 57);
+        padding: 10px;
+        text-align: center;
+        margin: 3% 40%;
+    }
+
+    .dand {
+        background-color: red, ;
+        position: absolute;
+        left: 64%;
+        bottom: 10%;
+    }
+
+    .cartt {
+        font-size: 70px;
+    }
+
+    .wft {
+        width: 150px;
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .inpp {
+        width: 20px;
+        margin-left: 10px;
+        border: none;
+        outline: none;
+        background: none;
+    }
+</style>
+
+<body>
+    <main>
+        <nav>
+            <div class="row">
+                <div class="col-3 d-flex align-items-center">
+                    <div class="dropdown">
+                        <button class="fs-1 fw-bolder text-success ddb border-0 "><span
+                                class="material-symbols-outlined">
+                                menu
+                            </span></button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="index.html">HOME</a></li>
+                            <li><a class="dropdown-item" href="men.html">Men's Wear</a></li>
+                            <li><a class="dropdown-item" href="women.html">Women's Wear</a></li>
+                            <li><a class="dropdown-item" href="accessories.html">Accessories</a></li>
+                            <li><a class="dropdown-item" href="#">Electronics</a></li>
+                            <li>
+                        </ul>
+                    </div>
+                    <h1>Ash<span>ion</span></h1>
+                </div>
+                <div class="col-6 d-none d-lg-block rgf  ">
+                    <div class="border w-100 rounded-2 inpp d-flex align-items-center p-2">
+                        <i class="fa-solid fa-magnifying-glass mx-2"></i>
+                        <input type="text" class="w-75  border-0 Outl"
+                            placeholder="Search For Products, Brands and Category">
+                        <button class="btn mx-2 btn-warning clo text-white">SEARCH</button>
+                    </div>
+
+                </div>
+                <div class="col-3 log">
+                    <button class="aa acc button"><i class="fa-solid fa-user aa"></i> Account </button>
+                    <button class="aa acc button"><i class="fa-sharp fa-solid fa-circle-question aa"></i> Help </button>
+                    <button class="btt aa button "><span class="material-symbols-outlined aa">
+                            shopping_cart
+                        </span></button>
+                    <button class="disp button"><span class="material-symbols-outlined">
+                            menu
+                        </span></button>
+                </div>
+            </div>
+        </nav>
+
+        <section>
+            <div class="d-flex ">
+                <div id="screen"></div>
+
+                <!-- <div class="border shadow rounded w-75 text-left  m-auto  py-3 px-2 my-4">
+                         <div class="wft rounded-circle border m-auto shadow text-center">
+                            <i class="fa-sharp cartt fa-solid fa-cart-shopping"></i>
+                         </div>
+  <br>
+                         <h1 class="fs-1 fw-bolder text-center">No items in your cart 🤨</h1>
+
+                         <button onclick="startshopping()" class="btn btn-success start">Start Shopping</button>
+                </div> -->
+
+                <div class="border shadow rounded   wdb  py-3 px-2 my-4">
+                    <small> Cart Summary </small>
+                    <hr>
+                    <p id="sub-screen" class="text-center my-2">  </p>
+                    <hr>
+                    <button class="btn btn-success w-100 border-0"> Checkout </button>
+
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="https://kit.fontawesome.com/7fe2d1a9ce.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+<script>
+    function startshopping() {
+        window.location.href = "index.html"
+    }
+    let show = JSON.parse(localStorage.getItem("content"));
+
+
+    let index = 0
+    if (show && show.length > 0) {
+        const container = document.getElementById("cart-items-container");
+        for (let index = 0; index < show.length; index++) {
+            const element = show[index];
+            document.getElementById("screen").innerHTML += `
+           <div class = "d-flex align-items-center ddd">
+            <div class = "border shadow rounded widt d-flex align-items-center wdt mx-5 py-3 px-2 my-4">
+                <img class = " image" src="${element.image}" alt="${element.name}">
+                <div class="cart-item-details w-50 mx-4">
+                  <p>${element.category}</p>
+                  <p>${element.description}</p>
+                  <img class = "imm" src="https://img.freepik.com/premium-vector/five-stars-rating-vector-icon_38133-30.jpg?w=2000" alt="" >
+                <p>Price: $${element.price}</p>
+
+                <div class="quantity">
+                    <button class="minus btn btn-success" onclick="decrement(this.nextElementSibling)">-</button>
+                      <input class = "inpp" id="value" type="text" value="1">
+                      <button class="plus btn btn-success" onclick="increment(this.previousElementSibling)">+</button>
+ 
+                </div>
+               <button onclick = "delt(${index})" class = "btn btn-danger dand text-start"> <i class="fa-solid fa-trash"></i>  Remove </button>
+            </div>
+            </div>
+         </div>
+    `
+        }
+
+    }
+    function delt(index) {
+        show.splice(index, 1);
+        console.log(show);
+        localStorage.setItem("content", JSON.stringify(show))
+        document.getElementById("screen").innerHTML = "";
+
+        // const show = JSON.parse(localStorage.getItem("content"));
+
+        for (let i = 0; i < show.length; i++) {
+            const element = show[i];
+            document.getElementById("screen").innerHTML += `
+           <div class = "d-flex align-items-center ddd">
+            <div class = "border shadow rounded widt d-flex align-items-center wdt mx-5 py-3 px-2 my-4">
+                <img class = " image" src="${element.image}" alt="${element.name}">
+                <div class="cart-item-details w-50 mx-4">
+                  <p>${element.category}</p>
+                  <p>${element.description}</p>
+                  <img class = "imm" src="https://img.freepik.com/premium-vector/five-stars-rating-vector-icon_38133-30.jpg?w=2000" alt="" >
+                <p>Price: $${element.price}</p>
+
+                <div class = "ddf mx-5 mt-5">
+                       <button id="btt" class="asd  btn btn-success" onclick="nto()">-</button>
+                       <div id="screen2-"  class = "scr2" >1</div>
+                       <button id="btt" class="asd btn btn-success " onclick="plux()">+</button>    
+               </div>
+               <button onclick = "delt()" class = "btn btn-danger dand text-start"> <i class="fa-solid fa-trash"></i>  Remove </button>
+            </div>
+            </div>
+         </div>
+    `
+        }
+        let total = 0; // initialize total to zero
+        for (let index = 0; index < show.length; index++) {
+            const element = show[index];
+            total += element.price; // add price of current item to total
+        }
+        document.getElementById("sub-screen").innerHTML = total; // display total
+    }
+    let i = 1
+    function increment(value) {
+        const currentValue = parseInt(value.value);
+        if (currentValue < 8) {
+            const newValue = currentValue + 1;
+            value.value = newValue;
+
+            let total = 0; // initialize total to zero
+            for (let index = 0; index < show.length; index++) {
+                const element = show[index];
+                total += element.price * value.value; // add price of current item to total
+            }
+            document.getElementById("sub-screen").innerHTML = `<div class = "d-flex align-items-center justify-content-between">
+            <span class="bb">Subtotal</span>
+            ${total}
+            </div>`; // display total
+
+        } else if (currentValue == 8) {
+            alert("only eight items can be selected")
+        }
+
+
+    }
+    function decrement(value) {
+        const currentValue = parseInt(value.value);
+        if (currentValue > 0) {
+            const newValue = currentValue - 1;
+            value.value = newValue;
+        }
+        let total = 0; // initialize total to zero
+            for (let index = 0; index < show.length; index++) {
+                const element = show[index];
+                total += element.price / value.value[index]; // add price of current item to total
+            }
+            document.getElementById("sub-screen").innerHTML = `<div class = "d-flex align-items-center justify-content-between">
+            <span class="bb">Subtotal</span>
+            ${total}
+            </div>`; // display total
+    }
+
+    function subtotal() {
+        let total = 0; // initialize total to zero
+        for (let index = 0; index < show.length; index++) {
+            const element = show[index];
+            total += element.price; // add price of current item to total
+        }
+        document.getElementById("sub-screen").innerHTML = `<div class = "d-flex align-items-center justify-content-between">
+            <span class="bb">Subtotal</span>
+            ${total}
+            </div>`; // display total
+    }
+    subtotal();
+
+
+</script>
