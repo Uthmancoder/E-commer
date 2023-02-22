@@ -419,24 +419,19 @@
                 <div class="col-6 d-none d-lg-block rgf  ">
                     <div class="border w-100 rounded-2 inpp d-flex align-items-center p-2">
                         <i class="fa-solid fa-magnifying-glass mx-2"></i>
-                        <input id="myInput" type="text" class="w-75  border-0 Outl"
+                        <input type="text" class="w-75  border-0 Outl"
                             placeholder="Search For Products, Brands and Category">
-                        <button onclick="srch()" class="btn mx-2 btn-warning clo text-white">SEARCH</button>
+                        <button class="btn mx-2 btn-warning clo text-white">SEARCH</button>
                     </div>
 
                 </div>
                 <div class="col-3 log">
                     <button class="aa acc button"><i class="fa-solid fa-user aa"></i> Account </button>
                     <button class="aa acc button"><i class="fa-sharp fa-solid fa-circle-question aa"></i> Help </button>
-                    <button onclick="cartt()" type="button" class="btn btn btt text-success aa button position-relative">
-                        <span class="material-symbols-outlined aa">
+                    <button onclick="cartt()" class="btt aa button ">
+                        <p id="cartscreen"></p><span class="material-symbols-outlined aa">
                             shopping_cart
-                        </span>
-                        <span id="nine" class="position-absolute top-0 start-100 translate-middle badge  rounded-pill bg-danger">
-                         0
-                          <span class="visually-hidden">unread messages</span>
-                        </span>
-                      </button>
+                        </span> </button>
                     <button class="disp button"><span class="material-symbols-outlined">
                             menu
                         </span></button>
@@ -500,7 +495,7 @@
 </html>
 <script>
     let myArray = []
-
+   
 
     fetch('https://fakestoreapi.com/products')
         .then(res => res.json())
@@ -532,12 +527,7 @@
     function cartt() {
         window.location.href = "cart.html"
     }
-  
-  function notify() {
-    let notification = document.getElementById("nine")
-    let checked = JSON.parse(localStorage.getItem("content")) || [];
-    nine.textContent = checked.length;       
-  }notify();
+
 
 
     function tocart(index) {
@@ -579,17 +569,17 @@
     console.log(checked);
 
     function adcart(index) {
-        if (checked === null || checked.length === 0) {
-            checked = [];
-        } else {
-            checked = JSON.parse(localStorage.getItem("content"));
-        }
+  if (checked === null || checked.length === 0) {
+    checked = [];
+  } else {
+    checked = JSON.parse(localStorage.getItem("content"));
+  }
 
-        const item = myArray[index];
-        checked.push(item);
-        localStorage.setItem("content", JSON.stringify(checked));
-        alert("Item added to cart.");
-    }
+  const item = myArray[index];
+  checked.push(item);
+  localStorage.setItem("content", JSON.stringify(checked));
+  alert("Item added to cart.");
+}
 
 
 
@@ -616,39 +606,4 @@
             document.querySelector(".non").style.visibility = "hidden";
         }
     }
-
-    // get a reference to the search button and input field
-    const searchBtn = document.querySelector('.clo');
-    const searchInput = document.querySelector('#myInput');
-
-    // add an event listener to the search button
-    searchBtn.addEventListener('click', function () {
-        // get the search query from the input field
-        const query = searchInput.value.toLowerCase();
-
-        // filter the myArray based on the search query
-        const filteredArray = myArray.filter(function (item) {
-            return (
-                item.title.toLowerCase().includes(query) ||
-                item.category.toLowerCase().includes(query)
-            );
-        });
-
-        // update the screen with the filtered items
-        const screen1 = document.getElementById('screen1');
-        screen1.innerHTML = '';
-        filteredArray.forEach(function (item) {
-            screen1.innerHTML += `
-      <div class="descr">
-        <img src="${item.image}" alt="${item.title}">
-        <h3>${item.title}</h3>
-        <p>${item.description}</p>
-        <p>Price: $${item.price}</p>
-      </div>
-    `;
-        });
-    });
-
-
-
 </script>

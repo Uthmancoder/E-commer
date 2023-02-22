@@ -13,6 +13,7 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
 
 </head>
 <style>
@@ -223,95 +224,6 @@
         align-items: center;
     }
 
-    .mxtt {
-        margin-left: 20%;
-    }
-
-
-    @media (max-width :550px) {
-        nav {
-            width: 100%;
-            padding: 10px;
-            position: sticky;
-            top: 0;
-            background-color: white;
-            z-index: 2;
-
-
-        }
-
-        .carousel-inner {
-            background-image: url(https://t4.ftcdn.net/jpg/05/55/20/29/240_F_555202983_l1Jqx8qmXjz8lW1w3eAiJN46Tc3sjoJi.jpg);
-            width: 100%;
-            height: 80vh;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-color: rgb(36, 61, 57);
-        }
-
-        .links {
-            display: none;
-        }
-
-        .wid {
-            width: 100%;
-            display: flex;
-            /* flex-wrap: wrap; */
-            margin: auto;
-
-        }
-
-        .ddb {
-            display: none;
-        }
-
-        .rgf {
-            display: none;
-        }
-
-        .inpp {
-            display: none;
-        }
-
-        .alt {
-            display: none;
-        }
-
-        .btt {
-            display: none;
-        }
-
-        .acc {
-            display: none;
-        }
-
-        .disp {
-            display: block;
-            position: absolute;
-            right: 0;
-            top: 0;
-        }
-
-        .fff {
-            margin: 0 12%;
-        }
-
-        .image {
-            border: 2px solid rgba(0, 0, 0, 0.1);
-            width: 120px;
-            height: 120px;
-            box-shadow: 0 0 20px grey;
-            border-radius: 10px;
-            margin: 5%;
-        }
-
-        .collect {
-            display: none;
-
-        }
-    }
-
     .Outl {
         outline: none;
     }
@@ -332,6 +244,8 @@
 
     .widt {
         width: 70%;
+        display: flex;
+        align-items: center;
     }
 
     .wdb {
@@ -383,6 +297,44 @@
         border: none;
         outline: none;
         background: none;
+    }
+    @media (max-width : 600px) {
+       nav{
+        width: 100%;
+        position: relative;
+       } 
+       .ddb{
+        position: absolute;
+        right: 20px;
+        top: 20px;
+       }
+       .widt{
+        width: 100%;
+        display: block;
+        /* padding-left: -60px; */
+        
+       }
+       .wdb {
+        width: 60%;
+        height: 200px;
+        background-color: white;
+        z-index: 1;
+        position: fixed;
+       bottom: 100%;
+        margin: auto;
+        left: 0;
+
+    }
+    .wdt{
+        padding-right: 20px;
+    }
+    .aa{
+        display: none;
+    }
+    .sss{
+        width: 100%;
+        
+    }
     }
 </style>
 
@@ -446,9 +398,10 @@
                 <div class="border shadow rounded   wdb  py-3 px-2 my-4">
                     <small> Cart Summary </small>
                     <hr>
-                    <p id="sub-screen" class="text-center my-2">  </p>
+                    <p id="sub-screen" class="text-center my-2"> </p>
                     <hr>
-                    <button class="btn btn-success w-100 border-0"> Checkout </button>
+                    <button type="button" onclick="makePayment()" class="btn btn-success w-100 border-0"> Checkout
+                    </button>
 
                 </div>
             </div>
@@ -476,9 +429,9 @@
             const element = show[index];
             document.getElementById("screen").innerHTML += `
            <div class = "d-flex align-items-center ddd">
-            <div class = "border shadow rounded widt d-flex align-items-center wdt mx-5 py-3 px-2 my-4">
+            <div class = "border shadow rounded widt  wdt mx-5 py-3 px-2 my-4">
                 <img class = " image" src="${element.image}" alt="${element.name}">
-                <div class="cart-item-details w-50 mx-4">
+                <div class="cart-item-details w-100 sss mx-4">
                   <p>${element.category}</p>
                   <p>${element.description}</p>
                   <img class = "imm" src="https://img.freepik.com/premium-vector/five-stars-rating-vector-icon_38133-30.jpg?w=2000" alt="" >
@@ -510,7 +463,7 @@
             const element = show[i];
             document.getElementById("screen").innerHTML += `
            <div class = "d-flex align-items-center ddd">
-            <div class = "border shadow rounded widt d-flex align-items-center wdt mx-5 py-3 px-2 my-4">
+            <div class = "border shadow rounded widt d-flex align-items-center wdt mx-5 py-3 my-4">
                 <img class = " image" src="${element.image}" alt="${element.name}">
                 <div class="cart-item-details w-50 mx-4">
                   <p>${element.category}</p>
@@ -566,11 +519,11 @@
             value.value = newValue;
         }
         let total = 0; // initialize total to zero
-            for (let index = 0; index < show.length; index++) {
-                const element = show[index];
-                total += element.price / value.value[index]; // add price of current item to total
-            }
-            document.getElementById("sub-screen").innerHTML = `<div class = "d-flex align-items-center justify-content-between">
+        for (let index = 0; index < show.length; index++) {
+            const element = show[index];
+            total += element.price / value.value[index]; // add price of current item to total
+        }
+        document.getElementById("sub-screen").innerHTML = `<div class = "d-flex align-items-center justify-content-between">
             <span class="bb">Subtotal</span>
             ${total}
             </div>`; // display total
@@ -588,6 +541,29 @@
             </div>`; // display total
     }
     subtotal();
-
+    function makePayment() {
+        FlutterwaveCheckout({
+            public_key: "FLWPUBK_TEST-SANDBOXDEMOKEY-X",
+            tx_ref: "titanic-48981487343MDI0NzMx",
+            amount: 54600,
+            currency: "NGN",
+            payment_options: "card, mobilemoneyghana, ussd",
+            redirect_url: "https://glaciers.titanic.com/handle-flutterwave-payment",
+            meta: {
+                consumer_id: 23,
+                consumer_mac: "92a3-912ba-1192a",
+            },
+            customer: {
+                email: "rose@unsinkableship.com",
+                phone_number: "08102909304",
+                name: "Rose DeWitt Bukater",
+            },
+            customizations: {
+                title: "Ashion's fashion Hub",
+                description: "Payment for an awesome cruise",
+                logo: "https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg",
+            },
+        });
+    }
 
 </script>
